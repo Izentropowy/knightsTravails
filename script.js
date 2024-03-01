@@ -86,7 +86,7 @@ const Board = () => {
     return possibleMoves;
   }
 
-  function findChain(moves, finalPos) {
+  function findChain(moves, currentPos, finalPos) {
     let chain = [finalPos];
     let currentField = board[finalPos[0]][finalPos[1]];
 
@@ -105,6 +105,7 @@ const Board = () => {
         }
       }
     }
+    chain.unshift(currentPos);
     return chain;
   }
 
@@ -122,7 +123,7 @@ const Board = () => {
         field = board[move[0]][move[1]];
         fields.push(field);
         if (move.toString() === finalPos.toString()) {
-          let result = findChain(eachIterationOptions, finalPos);
+          let result = findChain(eachIterationOptions, currentPos, finalPos);
           console.log(`You made it in ${result.length} moves`);
           console.log(result);
           return;
@@ -145,4 +146,4 @@ const Board = () => {
 };
 
 const newBoard = Board();
-newBoard.knightMoves([0, 0], [3, 3]);
+newBoard.knightMoves([3, 3], [0, 0]);
